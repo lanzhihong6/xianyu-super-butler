@@ -80,16 +80,16 @@
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/23Star/xianyu-super-butler.git
+git clone https://github.com/Mxucc/xianyu-super-butler.git
 cd xianyu-super-butler
 
 # 2. 安装依赖
 pip install -r requirements.txt
 
-# 3. 构建前端
+# 3. 构建前端（改成 pnpm 了）
 cd frontend
-npm install
-npm run build
+pnpm install
+pnpm run build
 
 # 4. 启动服务（返回项目根目录）
 cd ..
@@ -102,8 +102,7 @@ python Start.py
 ### 🔐 默认登录信息
 
 ```
-用户名: admin
-密码: admin123
+这个没有了，按网页提示操作
 ```
 
 ⚠️ **安全提示：首次登录后请立即修改默认密码！**
