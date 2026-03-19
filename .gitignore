@@ -381,7 +381,7 @@ check_disk_usage.py
 # 环境配置文件
 .env
 .env.*
-!.env.example
+# !.env.example # 注释掉，确保不提交
 .env.docker
 
 # === 滑块验证模块配置（二进制分发）===
@@ -594,7 +594,7 @@ __cache__/
 # 开发环境配置（保护开发者隐私）
 .env
 .env.*
-!.env.example
+# !.env.example # 注释掉，确保不提交
 *.local.yml
 *.dev.yml
 *.test.yml
@@ -732,7 +732,7 @@ utils/*.dist/**
 # 环境配置完整覆盖
 .env
 .env.*
-!.env.example
+# !.env.example # 注释掉，确保不提交
 *.local.yml
 *.dev.yml
 *.test.yml
