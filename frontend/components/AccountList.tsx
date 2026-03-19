@@ -30,6 +30,7 @@ const AccountList: React.FC = () => {
   const [showQRModal, setShowQRModal] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
   const [qrStatus, setQrStatus] = useState<string>('pending');
+  const [verificationUrl, setVerificationUrl] = useState<string>('');
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [editingAccount, setEditingAccount] = useState<AccountDetail | null>(null);
 
@@ -222,6 +223,10 @@ const AccountList: React.FC = () => {
               setShowQRModal(false);
               loadAccounts();
             }, 1000);
+          } else if (statusRes.status === 'verification_required') {
+            clearInterval(interval);
+            setQrStatus('verification');
+            setVerificationUrl(statusRes.verification_url || statusRes.url || '');
           } else if (statusRes.status === 'expired' || statusRes.status === 'error') {
             clearInterval(interval);
             setQrStatus('error');
@@ -360,6 +365,21 @@ const AccountList: React.FC = () => {
                                   <div className="flex flex-col items-center">
                                       <span className="text-red-500 font-bold mb-2">获取失败</span>
                                       <button onClick={startQRLogin} className="text-xs bg-gray-200 px-3 py-1 rounded-full flex items-center gap-1 hover:bg-gray-300"><RefreshCw className="w-3 h-3"/> 重试</button>
+                                  </div>
+                              )}
+                              {qrStatus === 'verification' && (
+                                  <div className="absolute inset-0 bg-white/95 flex flex-col items-center justify-center animate-fade-in p-4 text-center">
+                                      <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                                         <RefreshCw className="w-8 h-8 text-orange-500" />
+                                      </div>
+                                      <span className="text-orange-500 font-bold mb-2">账号被安全风控拦截</span>
+                                      <p className="text-xs text-gray-500 mb-4 px-2 leading-relaxed">请点击下方按钮前往浏览器完成闲鱼的滑块安全验证。<br/>验证通过后请重新扫码。</p>
+                                      {verificationUrl && (
+                                          <a href={verificationUrl} target="_blank" rel="noreferrer" className="ios-btn-primary bg-orange-500 hover:bg-orange-600 shadow-orange-200 text-white px-6 py-2 rounded-full font-bold text-sm shadow-md transition-transform hover:scale-105 active:scale-95 mb-3">
+                                              去完成安全验证
+                                          </a>
+                                      )}
+                                      <button onClick={startQRLogin} className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2">验证完毕？重新生成二维码</button>
                                   </div>
                               )}
                           </div>
