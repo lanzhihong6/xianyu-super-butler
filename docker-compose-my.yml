@@ -17,7 +17,6 @@ services:
       # 数据持久化(非常重要，否则重启丢失数据！)
       - /home/opc/docker_data/xianyu-super-butler/data:/app/data:rw
       - /home/opc/docker_data/xianyu-super-butler/logs:/app/logs:rw
-      - /home/opc/docker_data/xianyu-super-butler/global_config.yml:/app/global_config.yml:ro
       # 可选：备份目录
       - /home/opc/docker_data/xianyu-super-butler/backups:/app/backups:rw
       
